@@ -8,8 +8,8 @@ class PcmCaptureProcessor extends AudioWorkletProcessor {
     this._phase = 0
     this._prev = 0
     this._hasPrev = false
-    // 50ms at 16kHz = 800 samples = 1600 bytes
-    this.chunkSize = 800
+    // 25ms at 16kHz = 400 samples = 800 bytes (đáp ứng tức thì theo thời gian thực)
+    this.chunkSize = 400
     this.buffer = new Int16Array(this.chunkSize)
     this.bufIndex = 0
 

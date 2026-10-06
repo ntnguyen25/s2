@@ -110,11 +110,13 @@ function appendOrAddCue(
   const res = [...cues]
   const last = res[res.length - 1]
 
-  // Gom các từ vào cùng một câu phụ đề nếu câu chưa kết thúc bởi dấu câu và khoảng dừng nhỏ
+  // Gom các từ vào cùng một câu phụ đề nếu câu chưa kết thúc bởi dấu câu và nằm trong luồng liên tục
   const shouldAppend =
     last &&
     last.text.length < 65 &&
     !/[.?!]\s*$/.test(last.text) &&
+    startMs >= last.startMs &&
+    startMs - last.endMs >= -500 &&
     startMs - last.endMs < 1200
 
   if (shouldAppend) {
@@ -124,18 +126,32 @@ function appendOrAddCue(
       endMs: Math.max(last.endMs, endMs, last.startMs + (isTranslation ? 8500 : 7500)),
     }
   } else {
-    res.push({
-      id: `${Date.now()}-${isTranslation ? 'tr-' : ''}${Math.random().toString(36).slice(2, 7)}`,
-      text: clean,
-      startMs,
-      endMs: Math.max(endMs, startMs + (isTranslation ? 8500 : 7500)),
-      isFinal: true,
-      speaker,
-      lang,
-    })
+    // Kiểm tra xem đã có cue trùng lặp ở cùng mốc thời gian hay chưa (ví dụ tua lại đúng đoạn này)
+    const existingIndex = res.findIndex(
+      (c) => Math.abs(c.startMs - startMs) < 600,
+    )
+    if (existingIndex !== -1) {
+      res[existingIndex] = {
+        ...res[existingIndex],
+        text: clean,
+        endMs: Math.max(endMs, startMs + (isTranslation ? 8500 : 7500)),
+      }
+    } else {
+      res.push({
+        id: `${Date.now()}-${isTranslation ? 'tr-' : ''}${Math.random().toString(36).slice(2, 7)}`,
+        text: clean,
+        startMs,
+        endMs: Math.max(endMs, startMs + (isTranslation ? 8500 : 7500)),
+        isFinal: true,
+        speaker,
+        lang,
+      })
+    }
   }
 
-  return res.slice(-200)
+  // Luôn đảm bảo danh sách phụ đề được sắp xếp tuần tự theo thời gian video
+  res.sort((a, b) => a.startMs - b.startMs)
+  return res.slice(-300)
 }
 
 export const useAppStore = create<State & Actions>((set, get) => ({

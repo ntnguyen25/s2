@@ -171,6 +171,9 @@ export function useSonioxLive({ videoRef }: Props) {
           : null,
         sampleRate: 16000,
         numChannels: 1,
+        maxEndpointDelayMs: 500,
+        endpointSensitivity: 0.7,
+        endpointLatencyAdjustmentLevel: 2,
       },
       {
         onOpen: () => {

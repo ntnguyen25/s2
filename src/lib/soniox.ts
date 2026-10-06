@@ -10,6 +10,9 @@ export type SonioxConfig = {
   translation?: { type: 'one_way'; target_language: string } | null
   sampleRate?: number
   numChannels?: number
+  maxEndpointDelayMs?: number
+  endpointSensitivity?: number
+  endpointLatencyAdjustmentLevel?: number
 }
 
 export type SonioxEvents = {
@@ -58,8 +61,11 @@ export class SonioxSession {
       if (this.cfg.enableSpeakerDiarization) payload.enable_speaker_diarization = true
       if (this.cfg.enableLanguageIdentification) payload.enable_language_identification = true
       if (this.cfg.translation) payload.translation = this.cfg.translation
-      // endpoint detection sensible defaults
+      // Giảm tối đa độ trễ hoàn thành câu (endpoint delay) từ 2000ms xuống 500ms
       payload.enable_endpoint_detection = true
+      payload.max_endpoint_delay_ms = this.cfg.maxEndpointDelayMs ?? 500
+      payload.endpoint_sensitivity = this.cfg.endpointSensitivity ?? 0.6
+      payload.endpoint_latency_adjustment_level = this.cfg.endpointLatencyAdjustmentLevel ?? 2
 
       ws.send(JSON.stringify(payload))
       this.ev.onOpen?.()
