@@ -1,0 +1,8 @@
+{
+  "name": "s2",
+  "description": "Imported from GitHub: ntnguyen25/soniox-live-subs",
+  "requestFramePermissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

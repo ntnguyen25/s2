@@ -1,0 +1,42 @@
+{
+  "name": "soniox-live-subs",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Xem video (URL / local) với phụ đề Real-time và dịch Real-time bằng Soniox WebSocket STT, UI tối ưu cho iPhone.",
+  "scripts": {
+    "dev": "tsx server.ts",
+    "build": "tsc -b && vite build",
+    "lint": "tsc -b",
+    "typecheck": "tsc -b --force",
+    "preview": "vite preview",
+    "start": "tsx server.ts"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "hls.js": "^1.5.15",
+    "lucide-react": "^0.441.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zustand": "^4.5.5"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.4",
+    "@types/react": "^18.3.10",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "concurrently": "^9.0.1",
+    "cross-env": "^7.0.3",
+    "tsx": "^4.23.15",
+    "typescript": "^5.6.2",
+    "vite": "^5.4.8",
+    "wrangler": "^4.147.0"
+  },
+  "engines": {
+    "node": ">=18.17"
+  }
+}

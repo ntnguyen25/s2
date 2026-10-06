@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/audio/capture.ts","./src/components/controls.tsx","./src/components/subtitleoverlay.tsx","./src/components/urlinput.tsx","./src/components/videoplayer.tsx","./src/hooks/usesonioxlive.ts","./src/lib/soniox.ts","./src/lib/types.ts","./src/store/app.store.ts","./vite.config.ts"],"version":"5.9.3"}

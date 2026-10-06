@@ -1,0 +1,19 @@
+# Cloudflare Workers Static Assets + Worker script
+# Deploy:  npm run build && npx wrangler deploy
+#
+# Biến môi trường (KHÔNG đặt ở đây):
+#   Cloudflare Dashboard > Workers & Pages > project > Settings > Variables and Secrets
+#     SONIOX_API_KEY            (Encrypt = true)  — bắt buộc
+#     MEDIA_PROXY_ALLOWLIST     (optional)        — vd: "example.com,cdn.example.com"
+name = "soniox-live-subs"
+main = "worker/index.ts"
+compatibility_date = "2024-12-01"
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+# SPA: mọi route không khớp file tĩnh sẽ trả index.html
+not_found_handling = "single-page-application"
+
+[observability]
+enabled = true
