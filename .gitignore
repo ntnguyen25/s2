@@ -6,3 +6,6 @@ dist
 .DS_Store
 .vite
 .wrangler
+package-lock.json
+bun.lock
+bun.lockb
